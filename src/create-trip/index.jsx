@@ -24,6 +24,77 @@ import { db } from "@/service/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import VoiceInputButton from "./components/VoiceInputButton";
 
+const WomanTravelerOptions = [
+  {
+    title: "Solo Female Traveler",
+    icon: "👩‍💼",
+    desc: "Traveling alone as a woman"
+  },
+  {
+    title: "Group of Women",
+    icon: "👭",
+    desc: "Traveling with other women"
+  },
+  {
+    title: "Not Applicable",
+    icon: "🌟",
+    desc: "This doesn't apply to me"
+  }
+];
+
+// Age Group Options
+const AgeGroupOptions = [
+  {
+    title: "18-25",
+    icon: "🎓",
+    desc: "Young adult traveler"
+  },
+  {
+    title: "26-40",
+    icon: "👨‍💼",
+    desc: "Adult traveler"
+  },
+  {
+    title: "41-60",
+    icon: "👨‍👩‍👧‍👦",
+    desc: "Mature traveler"
+  },
+  {
+    title: "60+",
+    icon: "👴",
+    desc: "Senior traveler"
+  }
+];
+
+// Medical Considerations
+const MedicalOptions = [
+  {
+    title: "Motion Sickness",
+    icon: "🤢",
+    desc: "Nausea during travel"
+  },
+  {
+    title: "Altitude Sensitivity",
+    icon: "🏔️",
+    desc: "Difficulty with high altitudes"
+  },
+  {
+    title: "Food Allergies",
+    icon: "🍽️",
+    desc: "Specific dietary requirements"
+  },
+  {
+    title: "Walking Limitations",
+    icon: "🦽",
+    desc: "Limited mobility or stamina"
+  },
+  {
+    title: "No Medical Concerns",
+    icon: "✅",
+    desc: "No specific health considerations"
+  }
+];
+
 const TravelPreferences = () => {
   const [place, setPlace] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
@@ -285,6 +356,108 @@ const TravelPreferences = () => {
             ))}
           </div>
         </div>
+
+        <div className="bg-white rounded-2xl p-8 shadow-lg">
+        <div className="flex items-center gap-3 mb-6">
+          <h2 className="text-2xl font-semibold text-indigo-900">Are you a woman traveler?</h2>
+          <VoiceInputButton onTranscript={handleVoiceInput} />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {WomanTravelerOptions.map((item, index) => (
+            <div
+              key={index}
+              className={`rounded-xl transition-all duration-300 p-6 cursor-pointer hover:shadow-lg border-2
+                ${formData?.womanTraveler === item.title
+                  ? "border-indigo-500 bg-indigo-50"
+                  : "border-gray-100 hover:border-indigo-200"
+                }`}
+              onClick={() => handleInputChange("womanTraveler", item.title)}
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="text-4xl mb-3">{item.icon}</div>
+                <h3 className="text-xl font-semibold mb-2 text-indigo-900">{item.title}</h3>
+                <p className="text-gray-600">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Age Group Section */}
+      <div className="bg-white rounded-2xl p-8 shadow-lg">
+        <div className="flex items-center gap-3 mb-6">
+          <h2 className="text-2xl font-semibold text-indigo-900">What is your age group?</h2>
+          <VoiceInputButton onTranscript={handleVoiceInput} />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {AgeGroupOptions.map((item, index) => (
+            <div
+              key={index}
+              className={`rounded-xl transition-all duration-300 p-6 cursor-pointer hover:shadow-lg border-2
+                ${formData?.ageGroup === item.title
+                  ? "border-indigo-500 bg-indigo-50"
+                  : "border-gray-100 hover:border-indigo-200"
+                }`}
+              onClick={() => handleInputChange("ageGroup", item.title)}
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="text-4xl mb-3">{item.icon}</div>
+                <h3 className="text-xl font-semibold mb-2 text-indigo-900">{item.title}</h3>
+                <p className="text-gray-600">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Medical History Section */}
+      <div className="bg-white rounded-2xl p-8 shadow-lg">
+        <div className="flex items-center gap-3 mb-6">
+          <h2 className="text-2xl font-semibold text-indigo-900">Do you have any medical considerations?</h2>
+          <VoiceInputButton onTranscript={handleVoiceInput} />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {MedicalOptions.map((item, index) => (
+            <div
+              key={index}
+              className={`rounded-xl transition-all duration-300 p-6 cursor-pointer hover:shadow-lg border-2
+                ${formData?.medicalHistory?.includes(item.title)
+                  ? "border-indigo-500 bg-indigo-50"
+                  : "border-gray-100 hover:border-indigo-200"
+                }`}
+              onClick={() => {
+                const currentMedical = formData?.medicalHistory || [];
+                let newMedical;
+                
+                if (item.title === "No Medical Concerns") {
+                  // If selecting "No Medical Concerns", clear all other selections
+                  newMedical = [item.title];
+                } else {
+                  // Remove "No Medical Concerns" if it exists and another option is selected
+                  const filteredMedical = currentMedical.filter(m => m !== "No Medical Concerns");
+                  
+                  if (currentMedical.includes(item.title)) {
+                    // If item already selected, remove it
+                    newMedical = filteredMedical.filter(m => m !== item.title);
+                  } else {
+                    // Add the new selection
+                    newMedical = [...filteredMedical, item.title];
+                  }
+                }
+                
+                handleInputChange("medicalHistory", newMedical);
+              }}
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="text-4xl mb-3">{item.icon}</div>
+                <h3 className="text-xl font-semibold mb-2 text-indigo-900">{item.title}</h3>
+                <p className="text-gray-600">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
 
         {/* Generate Button */}
         <div className="flex justify-center">
