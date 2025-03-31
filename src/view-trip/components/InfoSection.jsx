@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { WiDaySunny, WiCloud, WiRain, WiSnow, WiFog } from "react-icons/wi";
-import { FiAlertTriangle, FiMapPin } from "react-icons/fi";
+import { FiAlertTriangle, FiMapPin, FiMusic } from "react-icons/fi"; // 🎵 Import Music Icon
 
 const InfoSection = ({ trip }) => {
   const navigate = useNavigate();
@@ -126,28 +126,33 @@ const InfoSection = ({ trip }) => {
           </div>
         )}
 
-        {/* Buttons for Emergency Services & Transportation */}
-        <div className="flex flex-col md:flex-row gap-4">
+        {/* Buttons Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
           {/* Emergency Services Button */}
           <button
             onClick={() => navigate("/emergency", { state: { trip } })}
-            className="px-4 py-2 bg-red-500 text-white rounded-lg flex items-center justify-between w-full transition hover:bg-red-600"
+            className="px-4 py-2 bg-red-500 text-white rounded-lg flex items-center justify-center transition hover:bg-red-600"
           >
-            <span className="font-semibold flex items-center">
-              <FiAlertTriangle className="mr-2" />
-              View Emergency Services
-            </span>
+            <FiAlertTriangle className="mr-2" />
+            <span className="font-semibold">Emergency Services</span>
           </button>
 
           {/* Transportation Button */}
           <button
             onClick={() => navigate("/transport", { state: { trip } })}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg flex items-center justify-between w-full transition hover:bg-blue-600"
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg flex items-center justify-center transition hover:bg-blue-600"
           >
-            <span className="font-semibold flex items-center">
-              <FiMapPin className="mr-2" />
-              View Available Transportation
-            </span>
+            <FiMapPin className="mr-2" />
+            <span className="font-semibold">View Transportation</span>
+          </button>
+
+          {/* Traveler Songs Button 🎵 */}
+          <button
+            onClick={() => navigate("/songs", { state: { trip } })}
+            className="px-4 py-2 bg-green-500 text-white rounded-lg flex items-center justify-center transition hover:bg-green-600"
+          >
+            <FiMusic className="mr-2" />
+            <span className="font-semibold">Traveler Songs</span>
           </button>
         </div>
       </div>

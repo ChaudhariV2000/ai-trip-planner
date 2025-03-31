@@ -8,9 +8,9 @@ export const SelectTravelList = [
   },
   {
     id: 2,
-    title: "Romantic Getaway",
-    desc: "Experience the world together",
-    icon: "❤️",
+    title: "Educational Trip",
+    desc: "Learn about the world ",
+    icon: "📖",
     people: "2 people"
   },
   {

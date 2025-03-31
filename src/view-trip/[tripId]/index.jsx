@@ -13,6 +13,7 @@ import Chat from "../components/Chatbot";
 import CarbonCalc from "../components/CarbonFtpr";
 import AerialMap from "../components/3Dmap";
 import Safetynews from "../components/SafetyNews";
+import SpecInstr from "../components/SpecInstr";
 
 const ViewTrip = () => {
   const { tripId } = useParams();
@@ -57,12 +58,14 @@ const ViewTrip = () => {
   const tabData = [
     { id: 'itinerary', label: 'Itinerary', component: <ItineraryCard trip={trip} /> },
     { id: 'events', label: 'Events', component: <Events trip={trip} /> },
-    { id: 'hotels', label: 'Hotels', component: <Hotels trip={trip} /> },
+    
     { id: 'map', label: 'Map', component: <LeafletTripMap trip={trip} /> },
     { id: 'AirMap', label: 'Visualize Journey', component: <AerialMap trip={trip} /> },
     { id: 'finance', label: 'Financial Forecast', component: <Finance trip={trip} /> },
     { id: 'News', label: 'Safety consideration', component: <Safetynews trip={trip} /> },
-    { id: 'CarbonCalc', label: 'Carbon footprint analyser', component: <CarbonCalc itineraryData={trip} /> }
+    { id: 'CarbonCalc', label: 'Carbon footprint analyser', component: <CarbonCalc itineraryData={trip} /> },
+    { id: 'SpecInstr', label: 'Special instructions', component: <SpecInstr trip ={trip} /> },
+    { id: 'hotels', label: 'Hotels', component: <Hotels trip={trip} /> },
     
   ];
 

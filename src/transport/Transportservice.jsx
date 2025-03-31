@@ -30,7 +30,7 @@ const TransportPage = () => {
         setError('');
 
         try {
-            const flightRes = await axios.get('http://localhost:5000/api/flights', {
+            const flightRes = await axios.get('http://localhost:5001/api/flights', {
                 params: { source, destination: trip.userChoice.location.label, date },
             });
             setFlights(flightRes.data);

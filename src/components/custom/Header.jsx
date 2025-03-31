@@ -60,13 +60,14 @@ const Header = () => {
     { name: "Quick create chatbot", path: "/chatbot" },
     { name: "About Us", path: "/about" },
     { name: "Contact", path: "/contact" },
+    { name: "Community", path: "http://localhost:8501/" },
   ];
 
   return (
     <header className="sticky top-0 z-50 px-4 py-3 shadow-md bg-white">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
+      <div className="max-w-9xl mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 self-start">
           <img className="w-24 h-auto" src="/logo.png" alt="Logo" />
         </div>
 
@@ -76,7 +77,7 @@ const Header = () => {
             <a
               key={link.name}
               href={link.path}
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
+              className="text-gray-700 hover:text-blue-600 px-2 py-2 text-sm font-medium transition-colors duration-200"
             >
               {link.name}
             </a>

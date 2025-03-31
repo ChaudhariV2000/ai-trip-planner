@@ -56,6 +56,7 @@ const router = createBrowserRouter([
         path: "/chatbot",
         element: <Chatbot />
     },
+    
     {
         path: "/nearme",
         element: <Immidiate />
